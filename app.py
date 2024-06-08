@@ -18,7 +18,7 @@ thread_lock = Lock()
 app = Flask(__name__)
 #socketio = SocketIO(app, cors_allowed_origins='*')
 #socketio = SocketIO(app, async_mode='gevent',cors_allowed_origins='*')
-socketio = SocketIO(app, async_mode='gevent', logger=True, engineio_logger=True, ,cors_allowed_origins='*')
+socketio = SocketIO(app, async_mode='gevent', logger=True, engineio_logger=True,cors_allowed_origins='*')
 
 def df_import(data):
     global btc
