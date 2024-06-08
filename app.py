@@ -36,7 +36,7 @@ def df_import(data):
     #Selecting Columns
     final = df_[['s','E','c']]
     #Print
-    #print(final.iloc[-1].c)
+    print(final.iloc[-1].c)
     btc = final.iloc[-1].c
     times = final.iloc[-1].E
 
