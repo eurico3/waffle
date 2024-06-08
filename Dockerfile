@@ -17,4 +17,4 @@ ENV PORT 8080
 # Run gunicorn with gevent when the container launches
 #CMD ["gunicorn", "-k", "gevent", "-w", "1", "-b", "0.0.0.0:8080", "app:app"]
 
-CMD ["gunicorn", "-k", "geventwebsocket.gunicorn.workers.GeventWebSocketWorker", "-w", "5", "-b", "0.0.0.0:8080", "app:app"]
+CMD ["gunicorn", "-k", "geventwebsocket.gunicorn.workers.GeventWebSocketWorker", "-w", "5", "-b", ":8080", "app:app"]
