@@ -1,11 +1,14 @@
+import gevent.monkey
+gevent.monkey.patch_all()
 from flask import Flask, render_template, url_for
 import websocket
 import json
 import pandas as pd
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send
 from threading import Lock
 import random
 import os
+
 
 endpoint = 'wss://stream.binance.com:9443/ws/!miniTicker@arr'
 
@@ -13,7 +16,8 @@ thread = None
 thread_lock = Lock()
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins='*')
+#socketio = SocketIO(app, cors_allowed_origins='*')
+socketio = SocketIO(app, async_mode='gevent',cors_allowed_origins='*')
 
 def df_import(data):
     global btc
