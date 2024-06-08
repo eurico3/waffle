@@ -1,9 +1,37 @@
-{% extends 'base.html' %}
-{% block conteudo %}
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask-SocketIO Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
 
-<div id="main-content">
-    
-Main Page
-         
-</div>
-{% endblock conteudo %}
+        socket.on('connect', function() {
+            socket.send('User has connected!');
+        });
+
+        socket.on('message', function(msg) {
+            $('#messages').append('<li>' + msg + '</li>');
+        });
+
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                socket.send($('#myMessage').val());
+                $('#myMessage').val('').focus();
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+    <ul id="messages"></ul>
+    <form>
+        <input id="myMessage" autocomplete="off" /><button>Send</button>
+    </form>
+</body>
+</html>
+
+
+
