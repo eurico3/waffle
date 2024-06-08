@@ -1,21 +1,55 @@
-# app.py
-from flask import Flask, render_template
-from flask_socketio import SocketIO, emit
+from websockets import connect
+import asyncio
+import sys
+import sqlite3
+import aiosqlite
+import json
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+#conn = sqlite3.connect("./data.db")
+#cursor = conn.cursor()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+#cursor.execute("DROP TABLE IF EXISTS trades")
+#cursor.execute(""" CREATE TABLE trades(
+#                        id int PRIMARY KEY,
+#                        time int,
+#                        quantity int,
+#                        price float)""")
 
-@socketio.on('message')
-def handle_message(message):
-    print('Received message: ' + message)
-    emit('message', message, broadcast=True)
+#cursor.execute("CREATE INDEX index_time ON trades(time)")
 
-if __name__ == '__main__':
-    socketio.run(app)
+#conn.commit()
+#conn.close()
+
+url = "wss://stream.binance.com:9443/ws/btcusdt@aggTrade"
+
+async def save_data(url):
+
+    async with connect(url) as websocket:
+        
+        buffer = []
+        
+        while True:
+            data = await websocket.recv()
+            data = json.loads(data)
+            #buffer.append((data['a'],data['T'],data['q'],data['p']))
+
+            print(data)
+
+            #if len(buffer) > 10:
+
+                #print('Writing to DB !!')
+
+             #   async with aiosqlite.connect("./data.db") as db:
+
+              #      await db.executemany("""INSERT INTO trades
+                #                         (id, time, quantity, price) VALUES (?,?,?,?)""", buffer)
+               #     await db.commit()
+                
+              #  buffer = []
+
+          #  print(data)
+
+
+asyncio.run(save_data(url))
 
 
