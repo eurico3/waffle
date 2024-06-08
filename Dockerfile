@@ -8,4 +8,8 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8080
 
-CMD python app.py
+# Define environment variable
+ENV PORT 8080
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]

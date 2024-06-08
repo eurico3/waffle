@@ -10,6 +10,8 @@ colorama==0.4.6
 cryptography==42.0.5
 Flask==2.2.2
 Flask-SocketIO==5.3.6
+gevent==24.2.1
+greenlet==3.0.3
 h11==0.14.0
 idna==3.4
 importlib-metadata==7.0.1
@@ -38,3 +40,5 @@ Werkzeug==2.3.8
 win-inet-pton==1.1.0
 wsproto==1.2.0
 zipp==3.17.0
+zope.event==5.0
+zope.interface==6.4.post2
