@@ -99,6 +99,6 @@ if __name__ == '__main__':
     #socketio.run(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
     #socketio.run(app, port=int(os.environ.get('PORT', 8080)))
     #socketio.run(app, host='0.0.0.0', port=8080)
-    socketio.run(app, host='0.0.0.0', port=8080)
+    socketio.run(app, port=8080)
 	#app.run(debug=True)
 	#app.run(debug=False,port=8080,host="0.0.0.0")
