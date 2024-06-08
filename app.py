@@ -5,6 +5,7 @@ import pandas as pd
 from flask_socketio import SocketIO
 from threading import Lock
 import random
+import os
 
 endpoint = 'wss://stream.binance.com:9443/ws/!miniTicker@arr'
 
@@ -89,6 +90,7 @@ def disconnect():
 
 
 if __name__ == '__main__':
-    socketio.run(app)
+    #socketio.run(app)
+    socketio.run(app, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
 	#app.run(debug=True)
 	#app.run(debug=False,port=8080,host="0.0.0.0")
