@@ -1,37 +1,33 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flask-SocketIO Chat</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Flask-SocketIO Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Flask-SocketIO Example</h1>
+    <button id="getDataButton">Get Data</button>
+    <div id="data"></div>
+
     <script type="text/javascript">
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        var socket = io.connect(window.location.origin);
 
         socket.on('connect', function() {
-            socket.send('User has connected!');
+            console.log('Connected to server');
         });
 
         socket.on('message', function(msg) {
-            $('#messages').append('<li>' + msg + '</li>');
+            console.log(msg.data);
         });
 
-        $(document).ready(function() {
-            $('form').submit(function(event) {
-                socket.send($('#myMessage').val());
-                $('#myMessage').val('').focus();
-                return false;
-            });
+        socket.on('data_response', function(data) {
+            document.getElementById('data').innerText = 'Received data: ' + data.value;
+        });
+
+        document.getElementById('getDataButton').addEventListener('click', function() {
+            socket.emit('request_data');
         });
     </script>
-</head>
-<body>
-    <ul id="messages"></ul>
-    <form>
-        <input id="myMessage" autocomplete="off" /><button>Send</button>
-    </form>
 </body>
 </html>
-
-
-
