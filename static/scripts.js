@@ -3,7 +3,9 @@ var btc
 document.addEventListener('DOMContentLoaded', function () {
 
     // Connect to the socket server.
-    var socket = io.connect();
+    //var socket = io.connect();
+    // testing new connection
+    var socket = io.connect(window.location.origin);
 
     // Receive details from server
     socket.on("updateData", function (msg) {
